@@ -1,10 +1,5 @@
-FROM ubuntu:14.04
-MAINTAINER "korea-her <sjher1@kr.ibm.com>"
-LABEL "purpose"="pratice"
-RUN apt-get update
-RUN apt-get install -y apache2
-ADD test.html /var/www/html
-WORKDIR /var/www/html
-RUN ["/bin/bash", "-c", "echo Hello >> test.html"]
+FROM ubuntu:latest
+RUN apt-get update && apt-get install -y -q nginx
+COPY ./index.html /usr/share/nginx/html/index.html
 EXPOSE 80
-CMD apachectl -D FOREGROUND
+CMD ["nginx", "-g", "daemon off;"]
